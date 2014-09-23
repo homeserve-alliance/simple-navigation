@@ -268,6 +268,30 @@ module SimpleNavigation
       end
     end
 
+    # should not need to test protected methods, but there is a bug
+    describe '#url_without_anchor' do
+      context 'the url is empty' do
+        let(:url) { '' }
+        it 'returns an empty string' do
+          expect(item.send :url_without_anchor).to eq('')
+        end
+      end
+
+      context 'the url has no anchor' do
+        let(:url) { '/foo' }
+        it 'returns the url' do
+          expect(item.send :url_without_anchor).to eq('/foo')
+        end
+      end
+
+      context 'the url has an anchor' do
+        let(:url) { '/foo#bar' }
+        it 'returns the left part' do
+          expect(item.send :url_without_anchor).to eq('/foo')
+        end
+      end
+    end
+
     describe '#selected?' do
       context 'when the item has no :highlights_on option' do
         before { allow(SimpleNavigation).to receive_messages(config: config) }

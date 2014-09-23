@@ -142,7 +142,7 @@ module SimpleNavigation
     end
 
     def url_without_anchor
-      url && url.split('#').first
+      url && url.partition('#').first
     end
 
     private
